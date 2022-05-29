@@ -1,0 +1,27 @@
+.trow {
+  background-color: grey;
+}
+
+.complet {
+  background-color: green;
+}
+
+.canceled {
+  background-color: #ff0000;
+}
+
+.customAccordion {
+  background-color: yellow;
+}
+
+.itemHeader {
+  /* background-color: #ff0000; */
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+}
+
+.colorBody {
+  background: linear-gradient(#e66465, #9198e5);
+}

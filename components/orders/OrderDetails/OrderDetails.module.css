@@ -1,0 +1,13 @@
+.itemToPrint {
+  background-color: rgb(196, 194, 194);
+  text-align: center;
+}
+
+.toPrint {
+  display: none;
+}
+
+.bgColor {
+  background-color: black;
+  color: white;
+}

@@ -1,0 +1,41 @@
+.input:checked {
+  margin-left: 25px;
+  border: 1px solid blue;
+}
+
+.pending,
+.processing,
+.onHold,
+.completed,
+.cancelled,
+.refunded,
+.failed {
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+}
+
+.pending {
+  background-color: rgb(177, 173, 173);
+}
+.processing {
+  background-color: greenyellow;
+}
+.onHold {
+  background-color: orange;
+}
+.completed {
+  background-color: rgb(14, 139, 66);
+  color: lightgreen;
+  /* font-weight: bold; */
+}
+.cancelled {
+  background-color: rgba(128, 128, 128, 0.397);
+}
+.refunded {
+  background-color: rgb(70, 70, 70);
+  color: white;
+}
+.failed {
+  background-color: red;
+  color: yellow;
+}

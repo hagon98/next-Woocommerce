@@ -29,15 +29,15 @@ function OrderStatus({ orderStatus }) {
       break;
 
     default:
-      // currentClass = "";
-      // status = "Impossible quelque chose c'est mal passé !";
       break;
   }
 
   console.log("currentClass", currentClass, status);
   return (
     <div>
-      <span className={currentClass}> {status} </span>
+      <ul>
+        <li className={currentClass}> {status} </li>
+      </ul>
     </div>
   );
 }

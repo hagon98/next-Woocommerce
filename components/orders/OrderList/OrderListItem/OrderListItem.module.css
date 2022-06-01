@@ -20,8 +20,11 @@
   width: 100%;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 10px;
+  padding: 0px;
+  margin: 0px;
+  /* padding-bottom: 5rem; */
 }
 
-.colorBody {
+/* .colorBody {
   background: linear-gradient(#e66465, #9198e5);
-}
+} */

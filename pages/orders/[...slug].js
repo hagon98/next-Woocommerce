@@ -1,29 +1,29 @@
 import { useRouter } from "next/router";
-import { identity } from "lodash";
+import { useContext, useEffect } from "react";
+
 import { Container } from "react-bootstrap";
 import OrderList from "../../components/orders/OrderList/OrderList";
 import OrderSearch from "../../components/orders/OrderSearch/OrderSearch";
+import OrdersContext from "../../store/orders-context";
 
 function Page({ data }) {
   const router = useRouter();
   const slug = router.query.slug[0];
+  const ctxOrders = useContext(OrdersContext);
 
-  const newDate = new Date(
-    slug.slice(0, 4),
-    Number(slug.slice(4, 6)) - 1,
-    slug.slice(6)
-  );
+  useEffect(() => {
+    ctxOrders.setOrders(data.orders);
+  }, [ctxOrders, data.orders]);
+  console.log(data.orders);
 
-  console.log(newDate);
+  // const newDate = new Date(
+  //   slug.slice(0, 4),
+  //   Number(slug.slice(4, 6)) - 1,
+  //   slug.slice(6)
+  // );
 
-  // Render data...
-  // console.log("data", data);
-
-  // function findOrdersHandler(year, month) {
-  //   const fullPath = `/orders/${year}/${month}`;
-
-  //   router.push(fullPath);
-  // }
+  //console.log("router", router.query.slug);
+  // console.log(window.location.href);
 
   if (!data) {
     <p>OUPS</p>;
@@ -31,9 +31,15 @@ function Page({ data }) {
 
   return (
     <Container>
-      {/* <OrderSearch onSearch={findOrdersHandler} /> */}
-      {/* <h2>Commande du {router.query}</h2> */}
-      {!data.success ? <p>Loading...</p> : <OrderList orders={data.orders} />}
+      <OrderSearch />
+      {!data.success ? (
+        <p>Loading...</p>
+      ) : (
+        <OrderList date={router.query.slug} orders={data.orders} />
+      )}
+      {/* <a href="/orders" className="text-center">
+        <strong>Retour</strong>
+      </a> */}
     </Container>
   );
 }
@@ -42,17 +48,12 @@ function Page({ data }) {
 export async function getServerSideProps(context) {
   // Fetch data from external API
 
-  console.log("slug", context.params.slug);
-  // ICI LA OUI CETS CA
-
   const res = await fetch(
     `http://localhost:3000/api/get-orders?slug=` + context.params.slug
   );
 
-  // console.log("res.json", res.json());
   const data = await res.json();
 
-  // Pass data to the page via props
   return { props: { data } };
 }
 

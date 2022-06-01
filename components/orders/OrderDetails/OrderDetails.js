@@ -1,9 +1,8 @@
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef } from "react";
 
 import { Button, Card } from "react-bootstrap";
 import ReactToPrint, { PrintContextConsumer } from "react-to-print";
 import classes from "./OrderDetails.module.css";
-import OrderStatus from "./OrderStatus/OrderStatus";
 
 function OrderDetails({ order }) {
   const ComponentToPrint = forwardRef((props, ref) => {
@@ -55,7 +54,6 @@ function OrderDetails({ order }) {
           </div>
           <hr></hr>
           prix total :{order.total + " " + order.currency_symbol}
-          {/* <OrderStatus order={order} /> */}
         </Card.Body>
       </Card>
       <ReactToPrint content={() => componentRef.current} copyStyles={true}>

@@ -5,8 +5,12 @@ import { isEmpty } from "lodash";
 
 import classes from "./OrderListItem.module.css";
 import OrderStatus from "../../OrderDetails/OrderStatus/OrderStatus";
+import { useContext } from "react";
+import OrdersContext from "../../../../store/orders-context";
 
 function OrderListItem({ order }) {
+  const ctxOrders = useContext(OrdersContext);
+
   if (isEmpty(order)) {
     return (
       <div>
@@ -17,19 +21,13 @@ function OrderListItem({ order }) {
 
   const date = order.date_created;
 
-  // console.log("order:", order.date_created);
-  // return;
-  const humanReadableDate = new Date(date).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const humanReadableDate = ctxOrders.converDateToHuman(date);
   return (
     // <>
     <div>
       <div>
         <Accordion>
-          <Accordion.Item eventKey="0">
+          <Accordion.Item className={classes.trow} eventKey="0">
             <Accordion.Header>
               <Container className={classes.itemHeader}>
                 <span>

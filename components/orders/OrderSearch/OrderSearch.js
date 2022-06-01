@@ -1,30 +1,47 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Card } from "react-bootstrap";
+import OrdersContext from "../../../store/orders-context";
 import ExamplePicker from "./ExamplePicker";
 import classes from "./OrderSearch.module.css";
 
-function OrderSearch(props) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+function OrderSearch() {
+  const ctxOrders = useContext(OrdersContext);
 
-  // console.log("yearInput", yearInputRef, monthInputRef);
+  const [selectedDate, setSelectedDate] = useState(ctxOrders.date);
+  const [showPicker, setShowPicker] = useState(false);
 
-  function submitHandler(event) {
-    event.preventDefault();
-    // setSelectedDate(20220521);
+  // useEffect(() => {
+  //   setShowPicker(false);
+  // }, [showPicker]);
 
-    props.onSearch(selectedDate);
-  }
+  // function submitHandler(event) {
+  //   event.preventDefault();
 
+  //   ctxOrders.setDate(selectedDate);
+  // }
+  // console.log(selectedDate);
   return (
-    <Container>
-      <h2 className="text-center">Sélectionner une date</h2>
-      <form className={classes.form} onSubmit={submitHandler}>
-        <ExamplePicker selDate={selectedDate} changeDate={setSelectedDate} />
-        <Button type="submit" className="primary">
-          Chercher
+    <Container fluid className={classes.pickerContainer}>
+      {/* <h2 className="text-center">Sélectionner une date</h2> */}
+      {/* <form className={classes.form} onSubmit={submitHandler}> */}
+      {/* <Card align="left"> */}
+      {showPicker ? (
+        <ExamplePicker
+          className={classes.picker}
+          selDate={selectedDate}
+          changeDate={setSelectedDate}
+        />
+      ) : (
+        <Button onClick={() => setShowPicker((prevState) => !prevState)}>
+          Changer de date
         </Button>
-      </form>
+      )}
+      {/* </Card> */}
+      {/* <Button type="submit" className="primary">
+          Chercher
+        </Button> */}
+      {/* </form> */}
     </Container>
   );
 }

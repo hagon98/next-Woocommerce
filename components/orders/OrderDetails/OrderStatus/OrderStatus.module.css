@@ -10,32 +10,29 @@
 .cancelled,
 .refunded,
 .failed {
-  padding: 0.4rem 0.8rem;
-  border-radius: 1rem;
+  list-style: 30px;
 }
 
 .pending {
-  background-color: rgb(177, 173, 173);
+  color: rgb(177, 173, 173);
 }
 .processing {
-  background-color: greenyellow;
+  color: greenyellow;
 }
 .onHold {
-  background-color: orange;
+  color: orange;
 }
 .completed {
-  background-color: rgb(14, 139, 66);
+  color: rgb(11, 116, 54);
   color: lightgreen;
   /* font-weight: bold; */
 }
 .cancelled {
-  background-color: rgba(128, 128, 128, 0.397);
+  color: rgba(128, 128, 128, 0.397);
 }
 .refunded {
-  background-color: rgb(70, 70, 70);
-  color: white;
+  color: rgb(31, 30, 30);
 }
 .failed {
-  background-color: red;
-  color: yellow;
+  color: red;
 }

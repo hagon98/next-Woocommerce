@@ -1,57 +1,44 @@
 import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import OrderFilter from "../../components/orders/OrderFilter/OrderFilter";
 
 import OrderList from "../../components/orders/OrderList/OrderList";
 import OrderSearch from "../../components/orders/OrderSearch/OrderSearch";
 import addZeroBeforeDateNumber from "../../components/utils/functions";
+import OrdersContext from "../../store/orders-context";
 
 function OrderPage(props) {
   const router = useRouter();
-  const { success, orders } = props;
+  const { success, orders, error } = props;
 
-  const date = new Date();
-  //const apiDate = [2022, "05", 10];
+  const ctxOrders = useContext(OrdersContext);
 
-  const month = addZeroBeforeDateNumber(date.getMonth() + 1);
-  const day = addZeroBeforeDateNumber(date.getDate());
+  useEffect(() => {
+    ctxOrders.setOrders(orders);
+  }, [ctxOrders, orders]);
 
-  const arrayDate = [date.getFullYear(), month, day - 1];
-  const todayDate = arrayDate.join("");
+  // useEffect(() => {
+  //   router.push("/orders");
+  // }, []);
 
-  console.log(todayDate);
-  // return;
+  console.log("error", error);
 
-  function findOrderByStatus(status) {
-    const path = `/orders/${status}`;
-
-    router.push(path);
-  }
-
-  function findOrdersHandler(date) {
-    const fullPath = `/orders/${date}`;
-
-    router.push(fullPath);
-  }
+  // if (!success) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <Container>
       <div className="d-flex justify-content-center">
-        <OrderFilter orderStatus={orders.status} onSearch={findOrderByStatus} />
-        <OrderSearch onSearch={findOrdersHandler} />
+        {/* <h3>Date : {ctxOrders.date && ctxOrders.date.toString()}</h3> */}
+        <OrderSearch />
       </div>
-      <>
-        {!success ? (
-          <p>Loading...</p>
-        ) : (
-          <OrderList test={"test"} date={todayDate.toString} orders={orders} />
-        )}
-      </>
+      <>{<OrderList orders={ctxOrders.orders} />}</>
     </Container>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const server = process.env.NEXT_PUBLIC_SITE_URL;
   const response = await fetch(`${server}/api/get-orders`, {
     method: "GET",

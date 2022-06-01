@@ -1,20 +1,19 @@
 import Head from "next/head";
+import { Container } from "react-bootstrap";
 
-import Header from "./Header";
+import classes from "./Layout.module.css";
 
 const Layout = (props) => {
   return (
-    <div>
+    <>
       <Head>
-        <title>WooCommerce</title>
-        {/* <link
-          rel="stylesheet"
-          href="https://bootswatch.com/5/lumen/bootstrap.min.css"
-        /> */}
+        <title>WooCommerce - React </title>
       </Head>
-      <Header />
-      {props.children}
-    </div>
+
+      <Container fluid className={classes.main}>
+        {props.children}
+      </Container>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -7,35 +7,36 @@ registerLocale("fr", fr);
 
 import "react-datepicker/dist/react-datepicker.css";
 import addZeroBeforeDateNumber from "../../utils/functions";
+import { useRouter } from "next/router";
+import OrdersContext from "../../../store/orders-context";
+import OrderList from "../OrderList/OrderList";
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+const ExamplePicker = ({ className }) => {
+  const ctxOrders = useContext(OrdersContext);
+  const [startDate, setStartDate] = useState(ctxOrders.date);
+  const router = useRouter();
+  const pathUrl = "orders";
 
-const ExamplePicker = ({ selDate, changeDate }) => {
-  const [startDate, setStartDate] = useState(selDate);
-
+  // useEffect(() => {
+  //   console.log("path", router.pathname);
+  //   if (router.pathname.startsWith("/" + pathUrl)) {
+  //     console.log("path", router.pathname);
+  //     pathUrl = "";
+  //   }
+  // }, [router]);
   function handleOnChange(e) {
-    // console.log("date:", e);
-    const y = new Date(e).getFullYear();
-    const m = new Date(e).getMonth() + 1;
-    const d = new Date(e).getDate();
+    setStartDate(e);
+    //console.log("start", ctxOrders.dateNow(e));
 
-    const newDate = new Date(y, m - 1, d);
-    const newUrl =
-      y.toString() + addZeroBeforeDateNumber(m) + addZeroBeforeDateNumber(d);
-
-    // console.log("changement:", y, m, d);
-    setStartDate(newDate);
-
-    changeDate(newUrl);
-
-    // setSearchDate(e.target.value);
-    // setStartDate(date);
+    router.push(`/${pathUrl}/${ctxOrders.dateTo8Digits(e)}`);
   }
-  // console.log("startDatePicker: ", startDate);
-
   return (
-    <DatePicker selected={startDate} onChange={handleOnChange} locale="fr" />
+    <DatePicker
+      className={className}
+      selected={startDate}
+      onChange={handleOnChange}
+      locale="fr"
+    />
   );
 };
 

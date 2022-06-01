@@ -24,5 +24,11 @@ module.exports = {
    */
   images: {
     domains: [allowedImageWordPressDomain, "via.placeholder.com"],
+    // domains: [
+    //   allowedImageWordPressDomain,
+    //   ,
+    //   "via.placeholder.com",
+    //   "vintage-streetfood.com",
+    // ],
   },
 };

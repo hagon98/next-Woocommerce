@@ -6,11 +6,30 @@ form.orders {
 
 .headStyle {
   display: flex;
+  color: white;
+  font-weight: 700;
   justify-content: space-between;
   border-radius: 0.2rem;
-  background-color: rgba(255, 255, 255, 0.753);
+  background-color: rgba(55, 55, 55);
+  padding: 2rem 1rem;
 }
 
 .listEmpty {
+  margin: 2rem auto;
   text-align: center;
+  background-color: lightgray;
+  padding: 1rem;
+  border: 1px dashed darkgray;
+  border-radius: 1rem;
+  width: fit-content;
+}
+
+.listEmpty h2 {
+  color: #13131399;
+  font-size: large;
+  font-style: italic;
+}
+.listEmpty h3 {
+  color: #131313;
+  font-size: larger;
 }
